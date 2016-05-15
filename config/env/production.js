@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: `mongodb://${process.env.YUMMY_USER}:${process.env.YUMMY_PASSWORD}@ds011382.mlab.com:11382/yummydb`,
+  db: `mongodb://ytm-usr:ytm-pwd@ds032579.mlab.com:32579/yummytimetest`,
   port: process.env.PORT || 3000,
   originURL: 'https://yummy-time.herokuapp.com',
   secret: 'secret',
