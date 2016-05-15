@@ -5,11 +5,8 @@ module.exports = {
     self: '/accounts/{id}'
   },
 
-  beforeRender(resource, req) {
-    if (!req.user || req.params.id !== req.user.id) {
-      resource.removeAttr('email');
-      resource.removeAttr('google');
-    }
+  beforeRender(resource) {
+    resource.removeAttr('email');
     resource.removeAttr('hashed_password');
     return resource;
   }

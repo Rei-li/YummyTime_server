@@ -2,22 +2,13 @@
 
 const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const OAuthProviders = [
-  'google'
-];
-const accountSchema = new mongoose.Schema({
+const accountSchema = new Schema({
+  email: { type: String, required: true },
+  hashed_password: { type: String, required: true },
   name: { type: String, default: '' },
-  email: { type: String, default: '' },
-  phone: { type: String, default: '' },
-  hashed_password: { type: String, default: '' },
-  provider: { type: String, default: '' },
-  google: {
-    id: { type: String },
-    token: { type: String },
-    refreshToken: { type: String },
-    displayName: { type: String }
-  }
+  phone: { type: String, default: '' }
 });
 
 accountSchema
@@ -33,11 +24,9 @@ accountSchema
 accountSchema.path('email').validate(function(email, callback) {
   const Account = mongoose.model('Account');
 
-  if (this.requireValidation()) {
-    if (this.isNew || this.isModified('email')) {
-      Account.find({ email })
-        .exec((err, accounts) => callback(!err && accounts.length === 0));
-    }
+  if (this.isNew || this.isModified('email')) {
+    Account.find({ email })
+      .exec((err, accounts) => callback(!err && accounts.length === 0));
   } else {
     callback(true);
   }
@@ -75,16 +64,6 @@ accountSchema.methods = {
    */
   authenticate(password) {
     return bcrypt.compareSync(password, this.hashed_password);
-  },
-
-  /**
-   * Uses to skip validation if account uses OAuth
-   *
-   * @return {Boolean}
-   * @api public
-   */
-  requireValidation() {
-    return (OAuthProviders.indexOf(this.provider) === -1);
   }
 };
 
