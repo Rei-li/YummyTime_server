@@ -1,8 +1,17 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
+
 const Account = require('../models/account');
+const google = require('./auth/google');
 const config = require('../../config/config');
+
+function createAccessToken(account) {
+  return {
+    message: 'Enjoy your token',
+    token: jwt.sign(account.id, config.secret)
+  };
+}
 
 exports.token = function(req, res) {
   const options = {
@@ -17,8 +26,7 @@ exports.token = function(req, res) {
 
     if (account) {
       if (account.authenticate(req.body.password)) {
-        const token = jwt.sign(account.id, config.secret);
-        res.json({ message: 'Enjoy your token', token });
+        res.json(createAccessToken(account));
       } else {
         res.status(400).json({ message: 'Invalid password' });
       }
@@ -27,3 +35,9 @@ exports.token = function(req, res) {
     }
   });
 };
+
+exports.callback = function(req, res) {
+  res.json(createAccessToken(req.user));
+};
+
+exports.google = google;
