@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 
 function connect(options) {
-  return mongoose.connect('mongodb://ytm-usr:ytm-pwd@ds032579.mlab.com:32579/yummytimetest', options).connection;
+  return mongoose.connect(config.db, options).connection;
 }
 
 function listen() {
