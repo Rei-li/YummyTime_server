@@ -11,5 +11,6 @@ module.exports = {
     clientSecret: process.env.GOOGLE_SECRET || 'mAgQY2Z9TPJzFGEGkQjU1-37',
     callbackURL: 'http://127.0.0.1:4200'
   },
-  smtp: 'smtps://yummytime.test%40gmail.com:yandex-shri-minsk-2016@smtp.gmail.com'
+  smtp: 'smtps://yummytime.test%40gmail.com:yandex-shri-minsk-2016@smtp.gmail.com',
+  systemEmail: 'yummytime.test@gmail.com'
 };
