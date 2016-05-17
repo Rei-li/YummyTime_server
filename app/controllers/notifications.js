@@ -6,6 +6,7 @@ const config = require('../../config/config');
 
 
 function sendEmail(email, message) {
+  console.log('email: '+ email);
   const transporter = nodemailer.createTransport(config.smtp);
 
   const mailOptions = {
