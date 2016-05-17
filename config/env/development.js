@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: 'mongodb://localhost/example',
+  db: 'mongodb://localhost/mytest',
   port: process.env.PORT || 3000,
   originURL: 'http://127.0.0.1:4200',
   secret: 'secret',
