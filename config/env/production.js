@@ -3,7 +3,7 @@
 module.exports = {
   db: 'mongodb://ytm-usr:ytm-pwd@ds032579.mlab.com:32579/yummytimetest',
   port: process.env.PORT || 3000,
-  originURL: 'https://my-yummytime.herokuapp.com',
+  originURL: 'http://my-yummytime.herokuapp.com',
   secret: 'secret',
   google: {
     // eslint-disable-next-line max-len
