@@ -35,6 +35,8 @@ function sendEmail(email, message) {
 
 
 exports.connection = function(io) {
+  io.set('transports', ['xhr-polling']);
+  io.set('polling duration', 10);
   io.sockets.on('connection', socket => {
     socket.on('join', data => {
       socket.join(data.room);
