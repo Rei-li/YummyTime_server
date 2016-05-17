@@ -6,7 +6,8 @@ const config = require('../../config/config');
 
 
 function sendEmail(email, message) {
-  console.log('email: '+ email);
+  // eslint-disable-next-line no-console
+  console.log(`email: ${email}`);
   const transporter = nodemailer.createTransport(config.smtp);
 
   const mailOptions = {
