@@ -2,6 +2,7 @@
 
 const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const OAuthProviders = [
   'google'
@@ -10,6 +11,7 @@ const accountSchema = new mongoose.Schema({
   name: { type: String, default: '' },
   email: { type: String, default: '' },
   phone: { type: String, default: '' },
+  company: { ref: 'Company', type: Schema.ObjectId },
   hashed_password: { type: String, default: '' },
   provider: { type: String, default: '' },
   google: {
