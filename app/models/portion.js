@@ -9,7 +9,8 @@ const portionSchema = new Schema({
   paid: { type: Boolean, required: true, default: false },
   deleted: { type: Boolean, required: true, default: false },
   owner: { ref: 'Account', type: Schema.ObjectId },
-  order: { ref: 'Order', type: Schema.ObjectId }
+  order: { ref: 'Order', type: Schema.ObjectId },
+  'portion-products': [{ ref: 'PortionProduct', type: Schema.ObjectId }]
 });
 
 module.exports = mongoose.model('Portion', portionSchema);
