@@ -17,16 +17,22 @@ module.exports = function applyRoutes(app) {
 
   app.get('/:type(orders|accounts|portions|vendors|products|portion-products)',
    passport.authenticate('jwt'), api);
+
   app.get('/:type(orders|accounts|portions|vendors|products|portion-products)/:id',
     passport.authenticate('jwt'), api);
+
   app.patch('/:type(orders|portions|products|portion-products)/:id',
    passport.authenticate('jwt'), api);
+
   app.post('/:type(orders|portions|vendors|products|portion-products)',
    passport.authenticate('jwt'), api);
+
   app.post('/:type(accounts)', api);
   app.patch('/:type(accounts)/:id', passport.authenticate('jwt'), api);
 
   app.get('/:type(companies)', api);
   app.get('/:type(companies)/:id', api);
   app.post('/:type(companies)', api);
+
+  app.delete('/:type(portion-products|portions)/:id', api);
 };
