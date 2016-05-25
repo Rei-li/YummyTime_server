@@ -8,6 +8,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const http = require('http');
 const notification = require('./app/controllers/notifications');
+const productsUpdateJob = require('./app/controllers/updateDb');
 
 const config = require('./config/config');
 const app = express();
@@ -47,6 +48,7 @@ require('./config/logger')(app);
 require('./config/passport')(app, passport);
 
 notification.connection(io);
+productsUpdateJob.job();
 
 // Bootstrap routes
 require('./config/routes')(app);

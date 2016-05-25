@@ -35,7 +35,9 @@ function sendEmail(email, message) {
   });
 }
 
-
+exports.sendEmail = function(email, message) {
+  sendEmail(email, message);
+};
 exports.connection = function(io) {
   // io.set('transports', ['xhr-polling']);
   io.set('polling duration', 10);
