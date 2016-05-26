@@ -42,22 +42,26 @@ function getVendor(url) {
 
 exports.job = function() {
   const rule = new schedule.RecurrenceRule();
-  rule.minute = 15;
+  rule.minute = 45;
+  let integratedVendorId = null;
   schedule.scheduleJob(rule, () => {
     console.log('products update startd ', new Date());
     getVendor(config.integratedVendorUrl).then(vendor => {
+      integratedVendorId = vendor._id;
       return getProducts(vendor._id);
     }).then(products => {
       request(config.menuUpdateUrl, (error, response, body) => {
         const responseProducts = JSON.parse(body);
+        const updatedProducts = [];
 
         while (products.length !== 0) {
           const existedProduct = products.pop();
           let isRecived = false;
 
           for (let i = 0; i < responseProducts.length; i++) {
-            if (responseProducts[i].vendorId === existedProduct.vendorId) {
+            if (responseProducts[i] === existedProduct.vendorId) {
               isRecived = true;
+              updatedProducts.push(responseProducts[i].vendorId);
               Product.findByIdAndUpdate(existedProduct._id, {
                 $set: {
                   title: responseProducts[i].title,
@@ -88,6 +92,39 @@ exports.job = function() {
             });
           }
         }
+
+
+        while (responseProducts.length !== 0) {
+          const recivedProduct = responseProducts.pop();
+          let isUpdated = false;
+
+          for (let i = 0; i < updatedProducts.length; i++) {
+            if (responseProducts[i].vendorId === recivedProduct.vendorId) {
+              isUpdated = true;
+              break;
+            }
+          }
+
+          if (!isUpdated) {
+            const newProduct = new Product({
+              title: recivedProduct.title,
+              description: recivedProduct.description,
+              imageUrl: recivedProduct.imageUrl,
+              price: recivedProduct.price,
+              category: recivedProduct.category,
+              vendorId: recivedProduct.vendorId,
+              deletedByVendor: false,
+              vendor: integratedVendorId
+            });
+            newProduct.save(err => {
+              if (err) {
+                consoale.log(err);
+              }
+            });
+          }
+        }
+
+
         console.log('products updated ', new Date());
         notification.sendEmail(config.adminEmail, 'products updated ');
       });
