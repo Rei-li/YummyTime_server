@@ -8,7 +8,10 @@ const productSchema = new Schema({
   description: { type: String },
   price: { type: Number, required: true },
   imageUrl: { type: String },
-  vendor: { ref: 'Vendor', type: Schema.ObjectId }
+  vendor: { ref: 'Vendor', type: Schema.ObjectId },
+  category: { type: String },
+  vendorId: { type: String },
+  deletedByVendor: { type: Boolean }
 });
 
 module.exports = mongoose.model('Product', productSchema);

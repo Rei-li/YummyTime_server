@@ -12,5 +12,8 @@ module.exports = {
     callbackURL: 'http://127.0.0.1:4200'
   },
   smtp: 'smtps://yummytime.test%40gmail.com:yandex-shri-minsk-2016@smtp.gmail.com',
-  systemEmail: 'yummytime.test@gmail.com'
+  systemEmail: 'yummytime.test@gmail.com',
+  menuUpdateUrl: 'https://menu-yummytime.herokuapp.com/menu',
+  integratedVendorUrl: 'http://pzz.by/',
+  adminEmail: 'rei-li@mail.ru'
 };
