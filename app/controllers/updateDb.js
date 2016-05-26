@@ -42,7 +42,7 @@ function getVendor(url) {
 
 exports.job = function() {
   const rule = new schedule.RecurrenceRule();
-  rule.minute = 0;
+  rule.minute = 15;
   schedule.scheduleJob(rule, () => {
     console.log('products update startd ', new Date());
     getVendor(config.integratedVendorUrl).then(vendor => {
