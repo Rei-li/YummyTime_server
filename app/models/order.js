@@ -11,7 +11,9 @@ const orderSchema = new Schema({
   vendor: { ref: 'Vendor', type: Schema.ObjectId },
   portions: [{ ref: 'Portion', type: Schema.ObjectId }],
   active: { type: Boolean, required: true, default: true },
-  deleted: { type: Boolean, required: true, default: false }
+  deleted: { type: Boolean, required: true, default: false },
+  date: { type: Date, required: true },
+  comment: { type: String, required: false }
 });
 
 module.exports = mongoose.model('Order', orderSchema);
