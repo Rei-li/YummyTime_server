@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const portionSchema = new Schema({
-  text: { type: String, required: true },
+  text: { type: String },
   cost: { type: Number, required: true },
   paid: { type: Boolean, required: true, default: false },
   deleted: { type: Boolean, required: true, default: false },

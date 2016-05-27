@@ -42,7 +42,7 @@ function getVendor(url) {
 
 exports.job = function() {
   const rule = new schedule.RecurrenceRule();
-  rule.minute = 45;
+  rule.minute = 46;
   let integratedVendorId = null;
   schedule.scheduleJob(rule, () => {
     console.log('products update startd ', new Date());
@@ -66,7 +66,7 @@ exports.job = function() {
                 $set: {
                   title: responseProducts[i].title,
                   description: responseProducts[i].description,
-                  imageUrl: responseProducts[i].imageUrl,
+                  image: responseProducts[i].imageUrl,
                   price: responseProducts[i].price,
                   category: responseProducts[i].category,
                   deletedByVendor: false
@@ -94,6 +94,7 @@ exports.job = function() {
         }
 
 
+
         while (responseProducts.length !== 0) {
           const recivedProduct = responseProducts.pop();
           let isUpdated = false;
@@ -109,7 +110,7 @@ exports.job = function() {
             const newProduct = new Product({
               title: recivedProduct.title,
               description: recivedProduct.description,
-              imageUrl: recivedProduct.imageUrl,
+              image: recivedProduct.imageUrl,
               price: recivedProduct.price,
               category: recivedProduct.category,
               vendorId: recivedProduct.vendorId,
@@ -118,7 +119,7 @@ exports.job = function() {
             });
             newProduct.save(err => {
               if (err) {
-                consoale.log(err);
+                console.log(err);
               }
             });
           }
