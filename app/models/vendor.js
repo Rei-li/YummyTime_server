@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 const vendorSchema = new Schema({
   title: { type: String, required: true },
   url: { type: String, required: true },
-  'min-order-cost': { type: Number }
+  'min-order-cost': { type: Number },
+  description: { type: String, required: false }
 });
 
 vendorSchema.path('title').validate(function(title, callback) {
